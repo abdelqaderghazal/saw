@@ -4193,6 +4193,15 @@ function collectSurveyData() {
 /* =========================================================
    SUBMIT
 ========================================================= */
+/* =========================================================
+   CONFIG - رابط Google Apps Script Web App
+   ⚠️ استبدل هذا الرابط برابطك بعد النشر
+========================================================= */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5wf4BNC7r-D7NHuch9cjotNbejs0N2hhsF2nwOGuMZh-iGjWIaSpOYRLe0e-ie-kb/exec";
+
+/* =========================================================
+   SUBMIT
+========================================================= */
 document.getElementById("surveyForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -4200,61 +4209,72 @@ document.getElementById("surveyForm").addEventListener("submit", function(event)
     if (!validateCurrentSection()) return;
 
     const data = collectSurveyData();
+    console.log("📤 Data collected:", JSON.stringify(data));
 
     isSubmitting = true;
     submitBtn.disabled = true;
     submitBtn.innerText = "جاري الحفظ...";
     loadingOverlay.style.display = "flex";
 
-    // Check if running inside Google Apps Script environment
-    if (typeof google !== "undefined" && google.script && google.script.run) {
-        console.log("📤 Sending data to Google Apps Script...");
-        google.script.run
-            .withSuccessHandler(function(result) {
-                console.log("📥 Response from server:", result);
-                isSubmitting = false;
-                loadingOverlay.style.display = "none";
-
-                if (result && result.success) {
-                    formCard.style.display = "none";
-                    successCard.style.display = "block";
-                    document.getElementById("responseId").innerText = "رقم الاستجابة: " + result.index;
-                    progressBar.style.width = "100%";
-                    progressPercent.innerText = "100%";
-                    progressText.innerText = "تم إرسال الاستبيان بنجاح";
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                } else {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "إرسال الاستبيان";
-                    showError(result && result.message ? result.message : "تعذر حفظ الاستبيان.");
-                }
-            })
-            .withFailureHandler(function(error) {
-                isSubmitting = false;
-                loadingOverlay.style.display = "none";
-                submitBtn.disabled = false;
-                submitBtn.innerText = "إرسال الاستبيان";
-                showError("حدث خطأ أثناء الاتصال بالخادم: " + (error && error.message ? error.message : "خطأ غير معروف"));
-            })
-            .submitSurvey(data);
-    } else {
-        // Fallback for standalone HTML (not in Google Apps Script)
-        // Simulate submission with a delay, then show success
-        setTimeout(function() {
-            isSubmitting = false;
-            loadingOverlay.style.display = "none";
-            formCard.style.display = "none";
-            successCard.style.display = "block";
-            document.getElementById("responseId").innerText = "رقم الاستجابة: " + Math.floor(Math.random() * 90000 + 10000);
-            progressBar.style.width = "100%";
-            progressPercent.innerText = "100%";
-            progressText.innerText = "تم إرسال الاستبيان بنجاح";
-            window.scrollTo({ top: 0, behavior: "smooth" });
-
-            // Also log to console for debugging
-            console.log("Survey data (standalone mode):", data);
-        }, 1500);
+    // Check if SCRIPT_URL is configured
+    if (SCRIPT_URL.indexOf("YOUR_SCRIPT_ID") !== -1) {
+        isSubmitting = false;
+        loadingOverlay.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "إرسال الاستبيان";
+        showError("⚠️ لم يتم ضبط رابط Google Apps Script.");
+        return;
     }
+
+    // Send data via fetch to Google Apps Script
+    // Using text/plain to avoid CORS preflight issues
+    var payload = JSON.stringify(data);
+    console.log("📤 Payload:", payload);
+
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: payload
+    })
+    .then(function() {
+        // With no-cors, response is opaque but request IS sent
+        console.log("✅ Request sent to Google Apps Script");
+        return { success: true };
+    })
+    .catch(function(error) {
+        console.error("❌ Fetch failed:", error);
+        throw new Error("فشل الاتصال: " + error.message);
+    })
+    .then(function() {
+        isSubmitting = false;
+        loadingOverlay.style.display = "none";
+
+        formCard.style.display = "none";
+        successCard.style.display = "block";
+
+        var successMsg = "✅ تم إرسال الاستبيان بنجاح!";
+        successMsg += "\n\n📊 البيانات أُرسلت إلى Google Sheets.";
+        successMsg += "\n\n💡 للتأكد: افتح Google Sheet ← القائمة 'استبيان الوزارة' ← 'الإحصائيات'.";
+
+        document.getElementById("responseId").innerText = successMsg;
+        document.getElementById("responseId").style.whiteSpace = "pre-line";
+        document.getElementById("responseId").style.lineHeight = "2";
+
+        progressBar.style.width = "100%";
+        progressPercent.innerText = "100%";
+        progressText.innerText = "تم إرسال الاستبيان بنجاح";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    })
+    .catch(function(error) {
+        isSubmitting = false;
+        loadingOverlay.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.innerText = "إرسال الاستبيان";
+        showError("❌ " + error.message);
+    });
 });
 
 /* =========================================================
