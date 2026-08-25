@@ -15,8 +15,7 @@ const SHEET_NAME = "استبيانات";
 function doGet(e) {
   return HtmlService.createHtmlOutputFromFile("survey_stars")
     .setTitle("استبيان وزارة الشؤون الاجتماعية والعمل")
-    .setFaviconUrl("https://www.gstatic.com/script/apps_script_1x_24dp.png")
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    .setFaviconUrl("https://www.gstatic.com/script/apps_script_1x_24dp.png");
 }
 
 /**
