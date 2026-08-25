@@ -1,0 +1,4338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+استبيان وزارة الشؤون الاجتماعية والعمل 
+</title>
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --green-950: #062A1D;
+    --green-900: #073C29;
+    --green-800: #075537;
+    --green-700: #0A6843;
+    --green-600: #16805A;
+
+    --green-soft: #EAF5EF;
+
+    --gold: #C8A43A;
+    --gold-light: #E7D18A;
+
+    --red: #C62828;
+    --black: #171717;
+
+    --white: #FFFFFF;
+
+    --bg: #F5F7F6;
+    --surface: #FFFFFF;
+    --surface-soft: #F8FAF9;
+
+    --text: #17221D;
+    --text-soft: #59665F;
+    --text-light: #85918B;
+
+    --border: #E1E8E4;
+
+    --danger: #B42318;
+    --danger-bg: #FFF1F0;
+
+    --success: #067647;
+    --success-bg: #ECFDF3;
+
+    --shadow-sm:
+        0 4px 14px rgba(20, 50, 38, .05);
+
+    --shadow:
+        0 15px 45px rgba(20, 50, 38, .08);
+
+    --shadow-lg:
+        0 25px 70px rgba(20, 50, 38, .12);
+
+    --radius-sm: 12px;
+    --radius: 18px;
+    --radius-lg: 26px;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Cairo",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        linear-gradient(
+            180deg,
+            #F5F7F6 0%,
+            #F8FAF9 100%
+        );
+
+    min-height: 100vh;
+
+}
+
+
+button,
+input,
+select,
+textarea {
+
+    font-family: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+::selection {
+
+    color: white;
+
+    background: var(--green-700);
+
+}
+
+
+/* =========================================================
+   TOP NATIONAL STRIPE
+========================================================= */
+
+.national-stripe {
+
+    height: 5px;
+
+    width: 100%;
+
+    display: flex;
+
+    position: relative;
+
+    z-index: 20;
+
+}
+
+.national-stripe .red {
+
+    flex: 1;
+
+    background: var(--red);
+
+}
+
+.national-stripe .white {
+
+    flex: 1;
+
+    background: #FFFFFF;
+
+}
+
+.national-stripe .black {
+
+    flex: 1;
+
+    background: var(--black);
+
+}
+
+
+/* =========================================================
+   MODERN HEADER
+========================================================= */
+
+.modern-header {
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: white;
+
+    background:
+
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(200,164,58,.11),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--green-950),
+            var(--green-900) 48%,
+            var(--green-800)
+        );
+
+    box-shadow:
+        0 8px 30px rgba(5,40,27,.12);
+
+}
+
+
+.modern-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 430px;
+
+    height: 430px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+
+    left: -250px;
+
+    top: -280px;
+
+}
+
+
+.modern-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+
+    height: 330px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(200,164,58,.08);
+
+    right: -180px;
+
+    bottom: -240px;
+
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+.header-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1180px;
+
+    min-height: 128px;
+
+    margin: auto;
+
+    padding:
+        24px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+}
+
+
+/* =========================================================
+   HEADER BRAND
+========================================================= */
+
+.header-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+}
+
+
+/* =========================================================
+   ABSTRACT BRAND MARK
+========================================================= */
+
+.brand-mark {
+
+    position: relative;
+
+    width: 54px;
+
+    height: 54px;
+
+    flex: 0 0 54px;
+
+    border:
+        1px solid
+        rgba(200,164,58,.40);
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    box-shadow:
+        inset 0 0 0 5px
+        rgba(255,255,255,.015);
+
+}
+
+
+.mark-line {
+
+    position: absolute;
+
+    width: 29px;
+
+    height: 4px;
+
+    right: 10px;
+
+    top: 18px;
+
+    border-radius: 20px;
+
+    background: var(--gold);
+
+    transform: rotate(-25deg);
+
+}
+
+
+.mark-line.short {
+
+    width: 20px;
+
+    right: 14px;
+
+    top: 29px;
+
+    opacity: .72;
+
+}
+
+
+.mark-dot {
+
+    position: absolute;
+
+    width: 6px;
+
+    height: 6px;
+
+    left: 10px;
+
+    bottom: 10px;
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+}
+
+
+/* =========================================================
+   HEADER TEXT
+========================================================= */
+
+.country-name {
+
+    color:
+        rgba(255,255,255,.66);
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin-bottom: 1px;
+
+}
+
+
+.ministry-name {
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    line-height: 1.6;
+
+}
+
+
+.brand-description {
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+
+}
+
+
+/* =========================================================
+   HEADER SIDE
+========================================================= */
+
+.header-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        10px 14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.status-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        rgba(255,255,255,.82);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.status-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #53C58A;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(83,197,138,.10);
+
+}
+
+
+.header-divider {
+
+    width: 1px;
+
+    height: 20px;
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+
+.header-message {
+
+    color: var(--gold-light);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.progress-wrapper {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(255,255,255,.94);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.progress-inner {
+
+    max-width: 1180px;
+
+    margin: auto;
+
+    padding:
+        12px 24px;
+
+}
+
+
+.progress-meta {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    color: var(--text-soft);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+
+.progress-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: #E8EEEB;
+
+}
+
+
+.progress-bar {
+
+    width: 20%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green-900),
+            var(--green-600),
+            var(--gold)
+        );
+
+    <div class="official-logo-wrap" aria-label="شعار الجمهورية العربية السورية">
+    <svg class="official-logo" viewBox="0 0 638 479" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#C8A43A;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#B8942A;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+        
+        <!-- النسر السوري الذهبي -->
+        <g fill="url(#goldGradient)" stroke="#A8943A" stroke-width="2">
+            <!-- الجسم -->
+            <path d="M319 200c-15 0-28 12-28 27v85c0 15 12 28 28 28s28-12 28-28v-85c0-15-12-27-28-27z"/>
+            
+            <!-- الرأس -->
+            <path d="M319 180c-12 0-22 10-22 22s10 22 22 22 22-10 22-22-10-22-22-22z"/>
+            <path d="M335 175l15-8-5 18z"/>
+            
+            <!-- الجناح الأيسر -->
+            <path d="M290 220c-40 5-75 25-100 55l-15 18c8 3 18 5 28 3l20-15c15-10 35-18 52-20l15-5v-36z"/>
+            <path d="M190 290l-35 25c-5 5-8 12-8 18l40-15c10-5 20-12 28-20l-25-8z"/>
+            
+            <!-- الجناح الأيمن -->
+            <path d="M348 220c40 5 75 25 100 55l15 18c-8 3-18 5-28 3l-20-15c-15-10-35-18-52-20l-15-5v-36z"/>
+            <path d="M448 290l35 25c5 5 8 12 8 18l-40-15c-10-5-20-12-28-20l25-8z"/>
+            
+            <!-- الذيل -->
+            <path d="M319 340l-15 45c0 8 5 15 15 15s15-7 15-15l-15-45z"/>
+            <path d="M305 385l-10 25c0 5 3 10 10 10s10-5 10-10l-8-20z"/>
+            <path d="M333 385l10 25c0 5-3 10-10 10s-10-5-10-10l8-20z"/>
+            
+            <!-- الأرجل -->
+            <path d="M305 330l-15 35c-2 5 0 10 5 12s10 0 12-5l12-30z"/>
+            <path d="M333 330l15 35c2 5 0 10-5 12s-10 0-12-5l-12-30z"/>
+        </g>
+        
+        <!-- النجوم الثلاثة -->
+        <g fill="#C8A43A" stroke="#A8943A" stroke-width="1.5">
+            <path d="M260 120l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10zM319 110l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10zM378 120l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10z"/>
+        </g>
+    </svg>
+</div>
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    padding:
+        32px 18px 70px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    align-items: center;
+
+    gap: 30px;
+
+    margin-bottom: 20px;
+
+    padding:
+        32px 34px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #F7FAF8
+        );
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(200,164,58,.14);
+
+    left: -100px;
+
+    bottom: -150px;
+
+}
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.hero-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 10px;
+
+    padding:
+        5px 11px;
+
+    border:
+        1px solid #D8E8DE;
+
+    border-radius: 30px;
+
+    color: var(--green-700);
+
+    background: var(--green-soft);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+}
+
+
+.hero-label span {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--green-600);
+
+}
+
+
+.hero h1 {
+
+    margin: 0;
+
+    color: var(--green-950);
+
+    font-size:
+        clamp(25px, 4vw, 36px);
+
+    line-height: 1.45;
+
+    font-weight: 800;
+
+}
+
+
+.hero p {
+
+    max-width: 700px;
+
+    margin:
+        8px 0 0;
+
+    color: var(--text-soft);
+
+    font-size: 12px;
+
+    line-height: 2;
+
+}
+
+
+.hero-side {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 145px;
+
+    height: 120px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background:
+        var(--green-950);
+
+    color: white;
+
+    box-shadow:
+        0 15px 35px
+        rgba(6,42,29,.14);
+
+}
+
+
+.hero-side-number {
+
+    color: var(--gold-light);
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+}
+
+
+.hero-side-text {
+
+    margin-top: 7px;
+
+    color:
+        rgba(255,255,255,.65);
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.form-card {
+
+    position: relative;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-lg);
+
+    background:
+        var(--surface);
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+}
+
+
+.form-top-line {
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green-950),
+            var(--green-600),
+            var(--gold)
+        );
+
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+
+    display: none;
+
+    padding:
+        35px 38px 25px;
+
+}
+
+
+.section.active {
+
+    display: block;
+
+    animation:
+        sectionIn .28s ease;
+
+}
+
+
+@keyframes sectionIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+    padding-bottom: 20px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.section-number {
+
+    width: 49px;
+
+    height: 49px;
+
+    flex: 0 0 49px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-950),
+            var(--green-700)
+        );
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 20px
+        rgba(6,42,29,.12);
+
+}
+
+
+.section-title h2 {
+
+    margin: 0;
+
+    color: var(--green-950);
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+}
+
+
+.section-title p {
+
+    margin:
+        3px 0 0;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   QUESTIONS
+========================================================= */
+
+.question {
+
+    margin-bottom: 28px;
+
+}
+
+
+.question:last-child {
+
+    margin-bottom: 10px;
+
+}
+
+
+.question-title {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    line-height: 1.9;
+
+}
+
+
+.required {
+
+    color: var(--red);
+
+    margin-right: 3px;
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+select,
+input[type="number"],
+textarea {
+
+    width: 100%;
+
+    padding:
+        13px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    color: var(--text);
+
+    background: #FFFFFF;
+
+    font-size: 12px;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+
+}
+
+
+select {
+
+    appearance: auto;
+
+}
+
+
+select:focus,
+input[type="number"]:focus,
+textarea:focus {
+
+    border-color:
+        var(--green-600);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(22,128,90,.07);
+
+}
+
+
+textarea {
+
+    min-height: 145px;
+
+    resize: vertical;
+
+    line-height: 2;
+
+}
+
+
+input::placeholder,
+textarea::placeholder {
+
+    color:
+        #A0AAA5;
+
+}
+
+
+/* =========================================================
+   CHOICES
+========================================================= */
+
+.choices {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 11px;
+
+}
+
+
+.choice {
+
+    position: relative;
+
+}
+
+
+.choice input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.choice label {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    min-height: 58px;
+
+    padding:
+        11px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #FFFFFF;
+
+    cursor: pointer;
+
+    color: var(--text-soft);
+
+    font-size: 11.5px;
+
+    font-weight: 600;
+
+    line-height: 1.7;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.choice label::before {
+
+    content: "";
+
+    width: 17px;
+
+    height: 17px;
+
+    flex: 0 0 17px;
+
+    margin-left: 10px;
+
+    border:
+        1.5px solid #C9D5CF;
+
+    border-radius: 5px;
+
+    background: white;
+
+    transition:
+        .2s;
+
+}
+
+
+.choice input:checked + label {
+
+    border-color:
+        var(--green-600);
+
+    background:
+        var(--green-soft);
+
+    color:
+        var(--green-950);
+
+    box-shadow:
+        0 4px 12px
+        rgba(22,128,90,.06);
+
+}
+
+
+.choice input:checked + label::before {
+
+    border-color:
+        var(--green-600);
+
+    background:
+        var(--green-600);
+
+    box-shadow:
+        inset 0 0 0 4px
+        var(--green-soft);
+
+}
+
+
+/* =========================================================
+   RADIO
+========================================================= */
+
+.radio {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 11px;
+
+}
+
+
+.radio-item {
+
+    position: relative;
+
+}
+
+
+.radio-item input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.radio-item label {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 55px;
+
+    padding:
+        10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: white;
+
+    color: var(--text-soft);
+
+    cursor: pointer;
+
+    text-align: center;
+
+    font-size: 11.5px;
+
+    font-weight: 600;
+
+    transition: .2s;
+
+}
+
+
+.radio-item label::before {
+
+    content: "";
+
+    width: 15px;
+
+    height: 15px;
+
+    margin-left: 8px;
+
+    border:
+        1.5px solid #C9D5CF;
+
+    border-radius: 50%;
+
+}
+
+
+.radio-item input:checked + label {
+
+    border-color:
+        var(--green-600);
+
+    background:
+        var(--green-soft);
+
+    color:
+        var(--green-950);
+
+}
+
+
+.radio-item input:checked + label::before {
+
+    border:
+        4px solid var(--green-600);
+
+    background: white;
+
+}
+
+
+/* =========================================================
+   STAR RATING
+========================================================= */
+
+.star-rating {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 18px 0;
+
+}
+
+
+.star-item {
+
+    position: relative;
+
+}
+
+
+.star-item input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.star-item label {
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 56px;
+
+    height: 56px;
+
+    border-radius: 16px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    transition: all .2s ease;
+
+}
+
+
+.star-item label:hover {
+
+    border-color: var(--gold-light);
+
+    box-shadow: 0 6px 18px rgba(200, 164, 58, .12);
+
+    transform: translateY(-2px);
+
+}
+
+
+.star-icon {
+
+    width: 30px;
+
+    height: 30px;
+
+    fill: #E1E8E4;
+
+    stroke: #C9D5CF;
+
+    stroke-width: 1;
+
+    transition: all .2s ease;
+
+}
+
+
+.star-item input:checked + label {
+
+    border-color: var(--gold);
+
+    background: rgba(200, 164, 58, .08);
+
+    box-shadow: 0 6px 18px rgba(200, 164, 58, .12);
+
+}
+
+
+.star-item input:checked + label .star-icon {
+
+    fill: var(--gold);
+
+    stroke: var(--gold);
+
+    transform: scale(1.1);
+
+}
+
+
+/* =========================================================
+   RATING (legacy - kept for compatibility if needed)
+========================================================= */
+
+.rating {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+
+}
+
+
+.rating-item {
+
+    position: relative;
+
+}
+
+
+.rating-item input {
+
+    position: absolute;
+
+    opacity: 0;
+
+}
+
+
+.rating-item label {
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: white;
+
+    color: var(--text-soft);
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    transition: .2s;
+
+}
+
+
+.rating-item input:checked + label {
+
+    color: white;
+
+    border-color:
+        var(--green-700);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-950),
+            var(--green-600)
+        );
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(6,42,29,.14);
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error {
+
+    display: none;
+
+    margin:
+        22px 38px 0;
+
+    padding:
+        13px 15px;
+
+    border:
+        1px solid #F4C7C3;
+
+    border-radius: 13px;
+
+    color: var(--danger);
+
+    background: var(--danger-bg);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding:
+        20px 38px 28px;
+
+    border-top:
+        1px solid var(--border);
+
+}
+
+
+.nav-buttons {
+
+    display: flex;
+
+    gap: 9px;
+
+}
+
+
+.btn {
+
+    min-width: 125px;
+
+    padding:
+        12px 20px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    transition:
+        .2s;
+
+}
+
+
+.btn:hover:not(:disabled) {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.btn:disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+}
+
+
+.btn-prev {
+
+    color: var(--text-soft);
+
+    background: #EEF2F0;
+
+}
+
+
+.btn-next,
+.btn-submit,
+.new-survey {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-950),
+            var(--green-600)
+        );
+
+    box-shadow:
+        0 7px 18px
+        rgba(6,42,29,.13);
+
+}
+
+
+.steps {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.step-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: #D7E0DB;
+
+    transition: .25s;
+
+}
+
+
+.step-dot.active {
+
+    width: 26px;
+
+    background: var(--gold);
+
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.success-card {
+
+    display: none;
+
+    text-align: center;
+
+    padding:
+        70px 30px;
+
+}
+
+
+.success-icon {
+
+    width: 82px;
+
+    height: 82px;
+
+    margin:
+        0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: var(--success);
+
+    background: var(--success-bg);
+
+    font-size: 38px;
+
+    font-weight: 800;
+
+}
+
+
+.success-card h2 {
+
+    margin:
+        0 0 7px;
+
+    color: var(--green-950);
+
+    font-size: 23px;
+
+}
+
+
+.success-card p {
+
+    margin: 0;
+
+    color: var(--text-soft);
+
+    font-size: 12px;
+
+}
+
+
+.response-id {
+
+    display: inline-block;
+
+    margin-top: 13px;
+
+    padding:
+        8px 15px;
+
+    border-radius: 10px;
+
+    color: var(--green-900);
+
+    background: var(--green-soft);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+}
+
+
+.success-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 25px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 9px;
+
+    line-height: 2;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(6,42,29,.35);
+
+    backdrop-filter: blur(5px);
+
+}
+
+
+.loading-box {
+
+    width: 220px;
+
+    padding:
+        25px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+
+.spinner {
+
+    width: 35px;
+
+    height: 35px;
+
+    margin:
+        0 auto 13px;
+
+    border:
+        3px solid #E3EBE7;
+
+    border-top-color:
+        var(--green-600);
+
+    border-radius: 50%;
+
+    animation:
+        spin .8s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+.loading-box span {
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width: 760px) {
+
+    .header-content {
+
+        min-height: auto;
+
+        padding:
+            20px 16px;
+
+    }
+
+
+    .header-status {
+
+        display: none;
+
+    }
+
+
+    .brand-mark {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+
+    .directorate-name {
+        margin-top: 3px;
+        color: var(--gold-light);
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .1px;
+    }
+
+    .ministry-name {
+
+        font-size: 16px;
+
+    }
+
+
+    .country-name {
+
+        font-size: 9px;
+
+    }
+
+
+    .brand-description {
+
+        font-size: 9px;
+
+    }
+
+
+    .main {
+
+        padding:
+            15px 10px 50px;
+
+    }
+
+
+    .hero {
+
+        grid-template-columns: 1fr;
+
+        padding:
+            25px 21px;
+
+        border-radius: 20px;
+
+    }
+
+
+    .hero-side {
+
+        display: none;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .hero p {
+
+        font-size: 11px;
+
+    }
+
+
+    .section {
+
+        padding:
+            25px 17px 18px;
+
+    }
+
+
+    .grid,
+    .choices,
+    .radio {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .navigation {
+
+        padding:
+            17px;
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+    }
+
+
+    .nav-buttons {
+
+        width: 100%;
+
+    }
+
+
+    .nav-buttons .btn {
+
+        flex: 1;
+
+        min-width: 0;
+
+    }
+
+
+    .steps {
+
+        justify-content: center;
+
+    }
+
+
+    .error {
+
+        margin:
+            17px 17px 0;
+
+    }
+
+
+    .progress-inner {
+
+        padding:
+            10px 15px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width: 430px) {
+
+    .header-brand {
+
+        gap: 10px;
+
+    }
+
+
+    .brand-mark {
+
+        display: none;
+
+    }
+
+
+    .directorate-name {
+        margin-top: 3px;
+        color: var(--gold-light);
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .1px;
+    }
+
+    .ministry-name {
+
+        font-size: 15px;
+
+    }
+
+
+    .section-heading {
+
+        gap: 11px;
+
+    }
+
+
+    .section-number {
+
+        width: 43px;
+
+        height: 43px;
+
+        flex-basis: 43px;
+
+        border-radius: 13px;
+
+    }
+
+
+    .section-title h2 {
+
+        font-size: 17px;
+
+    }
+
+
+    .rating {
+
+        gap: 6px;
+
+    }
+
+
+    .rating-item label {
+
+        height: 52px;
+
+    }
+
+
+    .star-rating {
+
+        gap: 8px;
+
+        padding: 12px 0;
+
+    }
+
+
+    .star-item label {
+
+        width: 48px;
+
+        height: 48px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .star-icon {
+
+        width: 24px;
+
+        height: 24px;
+
+    }
+
+}
+
+</style>
+
+
+<!-- رابط المشاركة ومعاينة الرابط -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="استبيان وزارة الشؤون الاجتماعية والعمل">
+<meta property="og:description" content="مديرية التخطيط والإحصاء — شارك برأيك وساهم في تطوير خدمات الوزارة.">
+<meta property="og:site_name" content="وزارة الشؤون الاجتماعية والعمل">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="استبيان وزارة الشؤون الاجتماعية والعمل">
+<meta name="twitter:description" content="مديرية التخطيط والإحصاء — شارك برأيك وساهم في تطوير خدمات الوزارة.">
+
+
+<style id="header-equal-title-style">
+.modern-header .country-name,
+.modern-header .ministry-name,
+.modern-header .directorate-name {
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.55;
+    letter-spacing: 0;
+    display: block;
+}
+.modern-header .country-name,
+.modern-header .ministry-name { margin-bottom: 2px; }
+</style>
+
+<style id="official-syrian-logo-style">
+/* الشعار الرسمي المرفوع من المستخدم */
+.official-logo-wrap {
+    width: 92px;
+    height: 78px;
+    flex: 0 0 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.official-logo {
+    display: block;
+    width: 92px;
+    height: auto;
+    max-height: 78px;
+    object-fit: contain;
+    filter: none;
+}
+
+@media (max-width: 700px) {
+    .official-logo-wrap {
+        width: 68px;
+        height: 60px;
+        flex-basis: 68px;
+    }
+    .official-logo {
+        width: 68px;
+        max-height: 60px;
+    }
+    .header-brand {
+        gap: 12px;
+    }
+}
+</style>
+
+
+<style id="syrian-header-country-gold">
+.modern-header .country-name {
+    color: #B9A779 !important;
+}
+</style>
+
+
+<style id="task-other-style">
+/* تم الاستغناء عن هذا النمط لأننا نستخدم شاشة منفصلة */
+</style>
+
+<base target="_blank">
+<base target="_blank">
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NATIONAL STRIPE
+========================================================= -->
+
+<div class="national-stripe">
+
+    <div class="red"></div>
+
+    <div class="white"></div>
+
+    <div class="black"></div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="modern-header">
+
+    <div class="header-content">
+
+
+        <div class="header-brand">
+
+
+            <div class="official-logo-wrap" aria-label="شعار الجمهورية العربية السورية">
+                <img class="official-logo" src="data:image/png;base64,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" alt="شعار الجمهورية العربية السورية">
+            </div>
+
+
+            <div>
+
+                <div class="country-name">
+                    الجمهورية العربية السورية
+                </div>
+
+                <div class="ministry-name">
+                    وزارة الشؤون الاجتماعية والعمل
+                </div>
+
+                <div class="directorate-name">
+                    مديرية التخطيط والإحصاء
+                </div>
+
+                <div class="brand-description">
+                    منصة الاستبيانات وقياس الرأي العام
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="header-status">
+
+
+            <div class="status-item">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    استبيان مجتمعي
+                </span>
+
+            </div>
+
+
+            <div class="header-divider"></div>
+
+
+            <div class="header-message">
+                رأيك يصنع الفرق
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</header>
+
+<!-- =========================================================
+     PROGRESS
+========================================================= -->
+
+<div class="progress-wrapper">
+
+    <div class="progress-inner">
+
+        <div class="progress-meta">
+
+            <span id="progressText">
+                المرحلة 1 من 6
+            </span>
+
+            <span id="progressPercent">
+                17%
+            </span>
+
+        </div>
+
+
+        <div class="progress-track">
+
+            <div
+                id="progressBar"
+                class="progress-bar">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-label">
+
+            <span></span>
+
+            استبيان قياس الرأي العام
+
+        </div>
+
+
+        <h1>
+            رأيك يصنع الفرق
+        </h1>
+
+
+        <p>
+
+            نعمل على تطوير برامج ومشاريع وخدمات وزارة الشؤون الاجتماعية والعمل
+            بما يتوافق مع احتياجات المواطنين والأولويات الوطنية.
+            مشاركتك تساعدنا على تحديد مستوى المعرفة بخدمات الوزارة
+            وتحديد الأولويات والمجالات التي تحتاج إلى مزيد من الاهتمام والتطوير.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="hero-side">
+
+        <div class="hero-side-number">
+            6
+        </div>
+
+        <div class="hero-side-text">
+            مراحل بسيطة لإكمال الاستبيان
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     FORM CARD
+========================================================= -->
+
+<div
+    id="formCard"
+    class="form-card">
+
+
+    <div class="form-top-line"></div>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error">
+    </div>
+
+
+    <form id="surveyForm">
+
+
+<!-- =========================================================
+     SECTION 1
+========================================================= -->
+
+<section
+    class="section active"
+    data-section="1">
+
+
+    <div class="section-heading">
+
+
+        <div class="section-number">
+            01
+        </div>
+
+
+        <div class="section-title">
+
+            <h2>
+                البيانات العامة
+            </h2>
+
+            <p>
+                معلومات عامة عن المشارك في الاستبيان
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- الجنس -->
+
+        <div class="question">
+
+            <label
+                class="question-title"
+                for="gender">
+
+                الجنس
+                <span class="required">*</span>
+
+            </label>
+
+
+            <select
+                id="gender"
+                required>
+
+                <option value="">
+                    اختر الجنس
+                </option>
+
+                <option value="ذكر">
+                    ذكر
+                </option>
+
+                <option value="أنثى">
+                    أنثى
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- العمر -->
+
+        <div class="question">
+
+            <label
+                class="question-title"
+                for="age">
+
+                العمر
+                <span class="required">*</span>
+
+            </label>
+
+
+            <input
+                id="age"
+                type="number"
+                min="15"
+                max="100"
+                placeholder="أدخل العمر"
+                required>
+
+        </div>
+
+
+        <!-- التعليم -->
+
+        <div class="question">
+
+            <label
+                class="question-title"
+                for="education">
+
+                المستوى التعليمي
+                <span class="required">*</span>
+
+            </label>
+
+
+            <select
+                id="education"
+                required>
+
+                <option value="">
+                    اختر المستوى التعليمي
+                </option>
+
+                <option value="أمي">
+                    أمي
+                </option>
+
+                <option value="يقرأ ويكتب">
+                    يقرأ ويكتب
+                </option>
+
+                <option value="ابتدائي">
+                    ابتدائي
+                </option>
+
+                <option value="إعدادي">
+                    إعدادي
+                </option>
+
+                <option value="ثانوي">
+                    ثانوي
+                </option>
+
+                <option value="معهد متوسط">
+                    معهد متوسط
+                </option>
+
+                <option value="جامعي">
+                    جامعي
+                </option>
+
+                <option value="دراسات عليا">
+                    دراسات عليا
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- الوضع الوظيفي -->
+
+        <div class="question">
+
+            <label
+                class="question-title"
+                for="employment">
+
+                الوضع الوظيفي
+                <span class="required">*</span>
+
+            </label>
+
+
+            <select
+                id="employment"
+                required>
+
+                <option value="">
+                    اختر الوضع الوظيفي
+                </option>
+
+                <option value="موظف">
+                    موظف
+                </option>
+
+                <option value="عامل">
+                    عامل
+                </option>
+
+                <option value="صاحب عمل">
+                    صاحب عمل
+                </option>
+
+                <option value="باحث عن عمل">
+                    باحث عن عمل
+                </option>
+
+                <option value="طالب">
+                    طالب
+                </option>
+
+                <option value="متقاعد">
+                    متقاعد
+                </option>
+
+                <option value="ربة منزل">
+                    ربة منزل
+                </option>
+
+                <option value="غير عامل">
+                    غير عامل
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 2
+========================================================= -->
+
+<section
+    class="section"
+    data-section="2">
+
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            02
+        </div>
+
+        <div class="section-title">
+
+            <h2>
+                مصادر المعلومات
+            </h2>
+
+            <p>
+                من أين تحصل غالبًا على معلوماتك حول الوزارة؟
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="question">
+
+
+        <label class="question-title">
+
+            من أين تحصل غالبًا على معلوماتك حول الوزارة؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="choices">
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="infoSources"
+                    id="infoMedia"
+                    value="وسائل الإعلام">
+
+                <label for="infoMedia">
+                    وسائل الإعلام
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="infoSources"
+                    id="infoSocial"
+                    value="وسائل التواصل الاجتماعي">
+
+                <label for="infoSocial">
+                    وسائل التواصل الاجتماعي
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="infoSources"
+                    id="infoNGO"
+                    value="الجمعيات الأهلية">
+
+                <label for="infoNGO">
+                    الجمعيات الأهلية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="infoSources"
+                    id="infoFriends"
+                    value="الأصدقاء/الأقارب">
+
+                <label for="infoFriends">
+                    الأصدقاء / الأقارب
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="infoSources"
+                    id="infoNone"
+                    value="لم أسمع عنها">
+
+                <label for="infoNone">
+                    لم أسمع عنها
+                </label>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 3
+========================================================= -->
+
+<section
+    class="section"
+    data-section="3">
+
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            03
+        </div>
+
+        <div class="section-title">
+
+            <h2>
+                معرفة مهام الوزارة
+            </h2>
+
+            <p>
+                ما أبرز مهام وزارة الشؤون الاجتماعية والعمل؟
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="question">
+
+
+        <label class="question-title">
+
+            ما أبرز مهام الوزارة؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="choices">
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskJobs"
+                    value="توفير فرص عمل">
+
+                <label for="taskJobs">
+                    توفير فرص عمل
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskVulnerable"
+                    value="رعاية الفئات الهشة (الأيتام، ذوي الإعاقة، كبار السن)">
+
+                <label for="taskVulnerable">
+                    رعاية الفئات الهشة
+                    (الأيتام، ذوو الإعاقة، كبار السن)
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskNGO"
+                    value="دعم الجمعيات الأهلية والمنظمات غير الحكومية">
+
+                <label for="taskNGO">
+                    دعم الجمعيات الأهلية والمنظمات غير الحكومية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskAid"
+                    value="تقديم مساعدات اجتماعية">
+
+                <label for="taskAid">
+                    تقديم مساعدات اجتماعية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskLabor"
+                    value="الإشراف على القوانين العمالية">
+
+                <label for="taskLabor">
+                    الإشراف على القوانين العمالية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskUnknown"
+                    value="لا أعرف">
+
+                <label for="taskUnknown">
+                    لا أعرف
+                </label>
+
+            </div>
+
+            <!-- خيار "أخرى" - ينقل إلى شاشة منفصلة -->
+            <div class="choice" style="grid-column: 1 / -1;">
+
+                <input
+                    type="checkbox"
+                    name="tasks"
+                    id="taskOther"
+                    value="أخرى">
+
+                <label for="taskOther">
+                    أخرى (سيطلب منك كتابة التفاصيل في الخطوة التالية)
+                </label>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 3.5 - شاشة كتابة المهمة الأخرى
+========================================================= -->
+
+<section
+    class="section"
+    data-section="3_5">
+
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            03
+        </div>
+
+        <div class="section-title">
+
+            <h2>
+                تفاصيل المهمة الأخرى
+            </h2>
+
+            <p>
+                اكتب المهمة أو الدور الآخر للوزارة
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="question">
+
+        <label
+            class="question-title"
+            for="taskOtherDetail">
+
+            ما هي المهمة أو الدور الآخر الذي تقوم به الوزارة؟
+            <span class="required">*</span>
+
+        </label>
+
+        <textarea
+            id="taskOtherDetail"
+            placeholder="اكتب المهمة أو الدور الآخر للوزارة هنا..."
+            style="min-height: 180px;"
+            maxlength="500"></textarea>
+
+        <div style="margin-top: 8px; text-align: left; color: var(--text-light); font-size: 11px;">
+            <span id="taskOtherCharCount">0</span> / 500 حرف
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 4
+========================================================= -->
+
+<section
+    class="section"
+    data-section="4">
+
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            04
+        </div>
+
+        <div class="section-title">
+
+            <h2>
+                تقييم دور الوزارة
+            </h2>
+
+            <p>
+                نريد معرفة رأيك في أداء وخدمات الوزارة
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- حماية الفئات -->
+
+    <div class="question">
+
+        <label class="question-title">
+
+            هل تقوم الوزارة بدورها في حماية ورعاية الفئات الأكثر ضعفًا؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="radio">
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="protection"
+                    id="protection1"
+                    value="نعم بشكل كبير">
+
+                <label for="protection1">
+                    نعم بشكل كبير
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="protection"
+                    id="protection2"
+                    value="نعم إلى حد ما">
+
+                <label for="protection2">
+                    نعم إلى حد ما
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="protection"
+                    id="protection3"
+                    value="إلى حد قليل">
+
+                <label for="protection3">
+                    إلى حد قليل
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="protection"
+                    id="protection4"
+                    value="لا">
+
+                <label for="protection4">
+                    لا
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="protection"
+                    id="protection5"
+                    value="لا أعرف">
+
+                <label for="protection5">
+                    لا أعرف
+                </label>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- فرص العمل -->
+
+    <div class="question">
+
+        <label class="question-title">
+
+            كيف ترى جهود الوزارة في توفير فرص العمل للشباب؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="radio">
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="jobs"
+                    id="jobs1"
+                    value="ممتازة">
+
+                <label for="jobs1">
+                    ممتازة
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="jobs"
+                    id="jobs2"
+                    value="جيدة">
+
+                <label for="jobs2">
+                    جيدة
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="jobs"
+                    id="jobs3"
+                    value="متوسطة">
+
+                <label for="jobs3">
+                    متوسطة
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="jobs"
+                    id="jobs4"
+                    value="ضعيفة">
+
+                <label for="jobs4">
+                    ضعيفة
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="jobs"
+                    id="jobs5"
+                    value="لا أعرف">
+
+                <label for="jobs5">
+                    لا أعرف
+                </label>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- الخدمات -->
+
+    <div class="question">
+
+        <label class="question-title">
+
+            كيف تقيم مستوى خدمات الوزارة بشكل عام؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="star-rating" id="starRating">
+
+
+            <div class="star-item" data-value="1">
+
+                <input
+                    type="radio"
+                    name="services"
+                    id="services1"
+                    value="1">
+
+                <label for="services1">
+                    <svg class="star-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+            </div>
+
+
+            <div class="star-item" data-value="2">
+
+                <input
+                    type="radio"
+                    name="services"
+                    id="services2"
+                    value="2">
+
+                <label for="services2">
+                    <svg class="star-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+            </div>
+
+
+            <div class="star-item" data-value="3">
+
+                <input
+                    type="radio"
+                    name="services"
+                    id="services3"
+                    value="3">
+
+                <label for="services3">
+                    <svg class="star-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+            </div>
+
+
+            <div class="star-item" data-value="4">
+
+                <input
+                    type="radio"
+                    name="services"
+                    id="services4"
+                    value="4">
+
+                <label for="services4">
+                    <svg class="star-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+            </div>
+
+
+            <div class="star-item" data-value="5">
+
+                <input
+                    type="radio"
+                    name="services"
+                    id="services5"
+                    value="5">
+
+                <label for="services5">
+                    <svg class="star-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                </label>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- التواصل -->
+
+    <div class="question">
+
+        <label class="question-title">
+
+            هل تعتقد أن الوزارة تتواصل بشكل كافٍ مع المواطنين لشرح خدماتها؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="radio">
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="communication"
+                    id="communication1"
+                    value="نعم">
+
+                <label for="communication1">
+                    نعم
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="communication"
+                    id="communication2"
+                    value="إلى حد ما">
+
+                <label for="communication2">
+                    إلى حد ما
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="communication"
+                    id="communication3"
+                    value="لا">
+
+                <label for="communication3">
+                    لا
+                </label>
+
+            </div>
+
+
+            <div class="radio-item">
+
+                <input
+                    type="radio"
+                    name="communication"
+                    id="communication4"
+                    value="لا أعرف">
+
+                <label for="communication4">
+                    لا أعرف
+                </label>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     SECTION 5
+========================================================= -->
+
+<section
+    class="section"
+    data-section="5">
+
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            05
+        </div>
+
+        <div class="section-title">
+
+            <h2>
+                الأولويات والمقترحات
+            </h2>
+
+            <p>
+                ما المجالات التي ترغب أن تعطي الوزارة أولوية أكبر؟
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="question">
+
+
+        <label class="question-title">
+
+            ما المجالات التي ترغب أن تعطي الوزارة أولوية أكبر؟
+            <span class="required">*</span>
+
+        </label>
+
+
+        <div class="choices">
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority1"
+                    value="توفير فرص العمل والتشغيل">
+
+                <label for="priority1">
+                    توفير فرص العمل والتشغيل
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority2"
+                    value="الحماية والرعاية الاجتماعية">
+
+                <label for="priority2">
+                    الحماية والرعاية الاجتماعية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority3"
+                    value="دعم الأشخاص ذوي الإعاقة">
+
+                <label for="priority3">
+                    دعم الأشخاص ذوي الإعاقة
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority4"
+                    value="رعاية كبار السن والأطفال">
+
+                <label for="priority4">
+                    رعاية كبار السن والأطفال
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority5"
+                    value="دعم الجمعيات والمنظمات الأهلية">
+
+                <label for="priority5">
+                    دعم الجمعيات والمنظمات الأهلية
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority6"
+                    value="التدريب والتأهيل المهني">
+
+                <label for="priority6">
+                    التدريب والتأهيل المهني
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority7"
+                    value="تحسين خدمات الوزارة">
+
+                <label for="priority7">
+                    تحسين خدمات الوزارة
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority8"
+                    value="التواصل والإعلام">
+
+                <label for="priority8">
+                    التواصل والإعلام
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="checkbox"
+                    name="priorities"
+                    id="priority9"
+                    value="أخرى">
+
+                <label for="priority9">
+                    أخرى
+                </label>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- المقترح -->
+
+    <div class="question">
+
+
+        <label
+            class="question-title"
+            for="suggestion">
+
+            ما اقتراحك الرئيسي لتحسين دور الوزارة؟
+
+        </label>
+
+
+        <textarea
+            id="suggestion"
+            placeholder="اكتب اقتراحك أو ملاحظتك هنا..."></textarea>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<div class="navigation">
+
+
+    <div class="nav-buttons">
+
+
+        <button
+            type="button"
+            id="previousBtn"
+            class="btn btn-prev"
+            onclick="previousSection()">
+
+            السابق
+
+        </button>
+
+
+        <button
+            type="button"
+            id="nextBtn"
+            class="btn btn-next"
+            onclick="nextSection()">
+
+            التالي
+
+        </button>
+
+
+        <button
+            type="submit"
+            id="submitBtn"
+            class="btn btn-submit"
+            style="display:none">
+
+            إرسال الاستبيان
+
+        </button>
+
+
+    </div>
+
+
+    <div class="steps">
+
+        <span class="step-dot active"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+
+    </div>
+
+
+</div>
+
+
+    </form>
+
+
+</div>
+
+
+<!-- =========================================================
+     SUCCESS CARD
+========================================================= -->
+
+<div
+    id="successCard"
+    class="form-card success-card">
+
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+
+    <h2>
+        تم إرسال الاستبيان بنجاح
+    </h2>
+
+
+    <p>
+        شكرًا لمشاركتك.
+        تم تسجيل إجابتك بنجاح.
+    </p>
+
+
+    <div
+        id="responseId"
+        class="response-id">
+    </div>
+
+
+    <div class="success-actions">
+
+
+        <button
+            type="button"
+            class="btn new-survey"
+            onclick="newSurvey()">
+
+            تعبئة استبيان جديد
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    وزارة الشؤون الاجتماعية والعمل
+    <br>
+    مديرية التخطيط والإحصاء
+    <br>
+    منصة الاستبيانات وقياس الرأي العام
+
+</footer>
+
+
+</main>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+    id="loadingOverlay"
+    class="loading-overlay">
+
+
+    <div class="loading-box">
+
+
+        <div class="spinner"></div>
+
+
+        <span>
+            جاري حفظ الاستبيان...
+        </span>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentSection = 1;
+const totalSections = 6;
+let surveyStartTime = new Date();
+let isSubmitting = false;
+
+const sections = document.querySelectorAll(".section");
+const dots = document.querySelectorAll(".step-dot");
+const progressBar = document.getElementById("progressBar");
+const progressText = document.getElementById("progressText");
+const progressPercent = document.getElementById("progressPercent");
+const previousBtn = document.getElementById("previousBtn");
+const nextBtn = document.getElementById("nextBtn");
+const submitBtn = document.getElementById("submitBtn");
+const formCard = document.getElementById("formCard");
+const successCard = document.getElementById("successCard");
+const errorBox = document.getElementById("error");
+const loadingOverlay = document.getElementById("loadingOverlay");
+
+/* =========================================================
+   UTILITY: Check if "Other" task is selected (real-time DOM check)
+========================================================= */
+function isTaskOtherSelected() {
+    const otherCheckbox = document.querySelector('input[name="tasks"][value="أخرى"]');
+    return otherCheckbox && otherCheckbox.checked;
+}
+
+/* =========================================================
+   UPDATE UI
+========================================================= */
+function updateUI() {
+    sections.forEach(section => section.classList.remove("active"));
+
+    const activeSection = document.querySelector('.section[data-section="' + currentSection + '"]');
+    if (activeSection) {
+        activeSection.classList.add("active");
+    }
+
+    // Calculate dot index
+    let dotIndex;
+    if (currentSection === "3_5") {
+        dotIndex = 3;
+    } else {
+        dotIndex = currentSection - 1;
+    }
+
+    dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === dotIndex);
+    });
+
+    // Calculate percentage
+    let sectionForPercent = (currentSection === "3_5") ? 4 : currentSection;
+    const percent = Math.round((sectionForPercent / totalSections) * 100);
+
+    progressBar.style.width = percent + "%";
+    progressPercent.innerText = percent + "%";
+
+    if (currentSection === "3_5") {
+        progressText.innerText = "المرحلة 4 من " + totalSections;
+    } else {
+        progressText.innerText = "المرحلة " + sectionForPercent + " من " + totalSections;
+    }
+
+    previousBtn.disabled = (currentSection === 1);
+
+    if (currentSection === totalSections) {
+        nextBtn.style.display = "none";
+        submitBtn.style.display = "block";
+    } else {
+        nextBtn.style.display = "block";
+        submitBtn.style.display = "none";
+    }
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+function showError(message) {
+    errorBox.innerText = message;
+    errorBox.style.display = "block";
+    setTimeout(() => {
+        errorBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 50);
+}
+
+function clearError() {
+    errorBox.innerText = "";
+    errorBox.style.display = "none";
+}
+
+/* =========================================================
+   GET VALUES
+========================================================= */
+function getChecked(name) {
+    return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(input => input.value);
+}
+
+function getRadio(name) {
+    const selected = document.querySelector('input[name="' + name + '"]:checked');
+    return selected ? selected.value : "";
+}
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+function validateCurrentSection() {
+    clearError();
+
+    /* --- SECTION 1 --- */
+    if (currentSection === 1) {
+        const gender = document.getElementById("gender").value;
+        const age = document.getElementById("age").value;
+        const education = document.getElementById("education").value;
+        const employment = document.getElementById("employment").value;
+
+        if (!gender || !age || !education || !employment) {
+            showError("يرجى استكمال جميع البيانات العامة قبل الانتقال.");
+            return false;
+        }
+        if (Number(age) < 15 || Number(age) > 100) {
+            showError("يرجى إدخال عمر صحيح بين 15 و100 سنة.");
+            return false;
+        }
+    }
+
+    /* --- SECTION 2 --- */
+    if (currentSection === 2) {
+        const sources = getChecked("infoSources");
+        if (sources.length === 0) {
+            showError("يرجى اختيار مصدر واحد على الأقل للمعلومات.");
+            return false;
+        }
+    }
+
+    /* --- SECTION 3 --- */
+    if (currentSection === 3) {
+        const tasks = getChecked("tasks");
+        if (tasks.length === 0) {
+            showError("يرجى اختيار مهمة واحدة على الأقل من مهام الوزارة.");
+            return false;
+        }
+    }
+
+    /* --- SECTION 3.5 (Other task detail) --- */
+    if (currentSection === "3_5") {
+        const otherText = document.getElementById("taskOtherDetail").value.trim();
+        if (!otherText) {
+            showError("يرجى كتابة المهمة أو الدور الآخر للوزارة.");
+            document.getElementById("taskOtherDetail").focus();
+            return false;
+        }
+        if (otherText.length < 3) {
+            showError("يرجى كتابة وصف أكثر تفصيلاً للمهمة الأخرى (3 أحرف على الأقل).");
+            document.getElementById("taskOtherDetail").focus();
+            return false;
+        }
+    }
+
+    /* --- SECTION 4 (Evaluation) --- */
+    if (currentSection === 4) {
+        if (!getRadio("protection")) {
+            showError("يرجى الإجابة عن سؤال حماية ورعاية الفئات الأكثر ضعفًا.");
+            return false;
+        }
+        if (!getRadio("jobs")) {
+            showError("يرجى الإجابة عن سؤال جهود توفير فرص العمل للشباب.");
+            return false;
+        }
+        if (!getRadio("services")) {
+            showError("يرجى تقييم مستوى خدمات الوزارة.");
+            return false;
+        }
+        if (!getRadio("communication")) {
+            showError("يرجى الإجابة عن سؤال التواصل مع المواطنين.");
+            return false;
+        }
+    }
+
+    /* --- SECTION 5 (Priorities) --- */
+    if (currentSection === 5) {
+        const priorities = getChecked("priorities");
+        if (priorities.length === 0) {
+            showError("يرجى اختيار مجال واحد على الأقل ترغب أن تعطيه الوزارة أولوية.");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/* =========================================================
+   NAVIGATION: NEXT
+========================================================= */
+function nextSection() {
+    if (!validateCurrentSection()) {
+        return;
+    }
+
+    // From section 3 → go to 3.5 if "Other" is selected
+    if (currentSection === 3 && isTaskOtherSelected()) {
+        currentSection = "3_5";
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    }
+
+    // From section 3.5 → go to 4
+    if (currentSection === "3_5") {
+        currentSection = 4;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    }
+
+    // Normal flow
+    if (currentSection < totalSections) {
+        currentSection++;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+/* =========================================================
+   NAVIGATION: PREVIOUS
+========================================================= */
+function previousSection() {
+    clearError();
+
+    // From 3.5 → go back to 3
+    if (currentSection === "3_5") {
+        currentSection = 3;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    }
+
+    // From 4 → go back to 3.5 if "Other" was selected
+    if (currentSection === 4 && isTaskOtherSelected()) {
+        currentSection = "3_5";
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    }
+
+    // Normal flow
+    if (currentSection > 1) {
+        currentSection--;
+        updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+/* =========================================================
+   COLLECT DATA
+   NOTE: Always reads from DOM directly — never relies on stale flags
+========================================================= */
+function collectSurveyData() {
+    // Read tasks from DOM directly
+    let tasks = getChecked("tasks");
+
+    // If "Other" is checked, replace it with the detailed text
+    if (isTaskOtherSelected()) {
+        const otherText = document.getElementById("taskOtherDetail").value.trim();
+        if (otherText) {
+            // Remove plain "أخرى" and add detailed version
+            tasks = tasks.filter(function(v) { return v !== "أخرى"; });
+            tasks.push("أخرى: " + otherText);
+        }
+    }
+
+    return {
+        start: surveyStartTime.toISOString(),
+        gender: document.getElementById("gender").value,
+        age: document.getElementById("age").value,
+        education: document.getElementById("education").value,
+        employment: document.getElementById("employment").value,
+        infoSources: getChecked("infoSources"),
+        tasks: tasks,
+        protection: getRadio("protection"),
+        jobs: getRadio("jobs"),
+        services: getRadio("services"),
+        communication: getRadio("communication"),
+        priorities: getChecked("priorities"),
+        suggestion: document.getElementById("suggestion").value
+    };
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+document.getElementById("surveyForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (isSubmitting) return;
+    if (!validateCurrentSection()) return;
+
+    const data = collectSurveyData();
+
+    isSubmitting = true;
+    submitBtn.disabled = true;
+    submitBtn.innerText = "جاري الحفظ...";
+    loadingOverlay.style.display = "flex";
+
+    google.script.run
+        .withSuccessHandler(function(result) {
+            isSubmitting = false;
+            loadingOverlay.style.display = "none";
+
+            if (result && result.success) {
+                formCard.style.display = "none";
+                successCard.style.display = "block";
+                document.getElementById("responseId").innerText = "رقم الاستجابة: " + result.index;
+                progressBar.style.width = "100%";
+                progressPercent.innerText = "100%";
+                progressText.innerText = "تم إرسال الاستبيان بنجاح";
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "إرسال الاستبيان";
+                showError(result && result.message ? result.message : "تعذر حفظ الاستبيان.");
+            }
+        })
+        .withFailureHandler(function(error) {
+            isSubmitting = false;
+            loadingOverlay.style.display = "none";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "إرسال الاستبيان";
+            showError("حدث خطأ أثناء الاتصال بالخادم: " + (error && error.message ? error.message : "خطأ غير معروف"));
+        })
+        .submitSurvey(data);
+});
+
+/* =========================================================
+   NEW SURVEY
+========================================================= */
+function newSurvey() {
+    document.getElementById("surveyForm").reset();
+    document.getElementById("taskOtherDetail").value = "";
+    successCard.style.display = "none";
+    formCard.style.display = "block";
+    currentSection = 1;
+    surveyStartTime = new Date();
+    isSubmitting = false;
+    submitBtn.disabled = false;
+    submitBtn.innerText = "إرسال الاستبيان";
+    clearError();
+    updateUI();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* =========================================================
+   CHARACTER COUNTER FOR TEXTAREA
+========================================================= */
+(function() {
+    const textarea = document.getElementById("taskOtherDetail");
+    const counter = document.getElementById("taskOtherCharCount");
+    if (textarea && counter) {
+        textarea.addEventListener("input", function() {
+            counter.textContent = this.value.length;
+        });
+    }
+})();
+
+/* =========================================================
+   STAR RATING INTERACTION
+========================================================= */
+(function() {
+    const starRating = document.getElementById('starRating');
+    if (!starRating) return;
+
+    const items = Array.from(starRating.querySelectorAll('.star-item'));
+
+    function updateStars() {
+        const checked = starRating.querySelector('input[name="services"]:checked');
+        const checkedValue = checked ? parseInt(checked.value) : 0;
+
+        items.forEach(item => {
+            const val = parseInt(item.dataset.value);
+            const icon = item.querySelector('.star-icon');
+            if (val <= checkedValue) {
+                icon.style.fill = 'var(--gold)';
+                icon.style.stroke = 'var(--gold)';
+            } else {
+                icon.style.fill = '#E1E8E4';
+                icon.style.stroke = '#C9D5CF';
+            }
+        });
+    }
+
+    items.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+            items.forEach((i, idx) => {
+                const icon = i.querySelector('.star-icon');
+                if (idx <= index) {
+                    icon.style.fill = 'var(--gold)';
+                    icon.style.stroke = 'var(--gold)';
+                    icon.style.transform = 'scale(1.15)';
+                } else {
+                    icon.style.fill = '#E1E8E4';
+                    icon.style.stroke = '#C9D5CF';
+                    icon.style.transform = 'scale(1)';
+                }
+            });
+        });
+    });
+
+    starRating.addEventListener('mouseleave', () => {
+        items.forEach(item => {
+            const icon = item.querySelector('.star-icon');
+            icon.style.transform = 'scale(1)';
+        });
+        updateStars();
+    });
+
+    items.forEach(item => {
+        const input = item.querySelector('input');
+        input.addEventListener('change', updateStars);
+    });
+
+    // Initial state
+    updateStars();
+})();
+
+/* =========================================================
+   INIT
+========================================================= */
+updateUI();
+
+</script>
+
+</body>
+
+</html>
