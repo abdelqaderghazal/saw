@@ -1,234 +1,375 @@
 /**
  * ============================================================================
- *  Google Apps Script - API Backend Only (for GitHub Pages)
- *  لا يحتاج doGet — الواجهة الأمامية على GitHub Pages
+ * استبيان وزارة الشؤون الاجتماعية والعمل
+ * Google Apps Script Backend
+ *
+ * يعمل بطريقتين:
+ * 1) عند تشغيل Index.html من Apps Script: google.script.run
+ * 2) عند استضافة Index.html على GitHub Pages: POST إلى Web App /exec
  * ============================================================================
  */
 
-const SHEET_NAME = "استبيانات";
-const SPREADSHEET_ID = "";
+const CONFIG = {
+  SHEET_NAME: "استبيانات",
+  SPREADSHEET_ID: "", // اتركه فارغاً إذا كان المشروع مرتبطاً مباشرةً بـ Google Sheet
+  TIMEZONE: "Asia/Damascus"
+};
 
-function getSpreadsheet() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  if (ss) return ss;
-  if (SPREADSHEET_ID && SPREADSHEET_ID.length > 10) {
-    try { return SpreadsheetApp.openById(SPREADSHEET_ID); }
-    catch (e) { console.error("Invalid ID:", e); }
+/**
+ * تشغيل واجهة الاستبيان عند فتح رابط Web App.
+ */
+function doGet(e) {
+  const params = e && e.parameter ? e.parameter : {};
+
+  // فحص API اختياري: ضع ?api=1
+  if (params.api === "1") {
+    return jsonResponse({
+      success: true,
+      status: "API Active",
+      message: "Google Apps Script is running",
+      timestamp: new Date().toISOString()
+    });
   }
-  return null;
+
+  return HtmlService
+    .createHtmlOutputFromFile("Index")
+    .setTitle("استبيان وزارة الشؤون الاجتماعية والعمل")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
 /**
- * doPost - استقبال البيانات فقط (API)
- * ============================================================================
+ * استقبال البيانات من GitHub Pages / أي صفحة خارجية.
  */
 function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.waitLock(15000);
+  const lock = LockService.getScriptLock();
 
   try {
-    console.log("📥 doPost triggered");
+    lock.waitLock(15000);
 
-    // التحقق من وجود e
     if (!e) {
-      lock.releaseLock();
-      return jsonResponse({ success: false, message: "No event object received" });
+      return jsonResponse({ success: false, message: "لم يتم استقبال طلب." });
     }
 
-    console.log("📥 e keys:", Object.keys(e));
-    console.log("📥 e.postData:", e.postData ? "exists" : "undefined");
+    const data = extractPostData(e);
 
-    var data = {};
-
-    // محاولة 1: JSON من postData.contents
-    if (e.postData && e.postData.contents) {
-      console.log("📥 Raw contents:", e.postData.contents.substring(0, 200));
-      try {
-        data = JSON.parse(e.postData.contents);
-        console.log("✅ Parsed JSON data:", JSON.stringify(data));
-      } catch (parseErr) {
-        console.error("❌ JSON parse failed:", parseErr);
-        data = parseFormData(e.postData.contents);
-      }
-    }
-    // محاولة 2: معاملات URL
-    else if (e.parameter && Object.keys(e.parameter).length > 0) {
-      data = e.parameter;
-      console.log("📥 Using URL parameters:", JSON.stringify(data));
-    }
-    else {
-      console.error("❌ No data found in request");
-      lock.releaseLock();
-      return jsonResponse({ success: false, message: "No data received in request" });
+    if (!data || Object.keys(data).length === 0) {
+      return jsonResponse({
+        success: false,
+        message: "لم يتم استقبال بيانات الاستبيان."
+      });
     }
 
-    // التحقق من صحة البيانات
-    if (!data || typeof data !== "object") {
-      lock.releaseLock();
-      return jsonResponse({ success: false, message: "Invalid data format" });
-    }
-
-    console.log("📥 Processing data:", JSON.stringify(data));
-    var result = saveSurveyData(data);
-
-    lock.releaseLock();
+    const result = saveSurveyData(data);
     return jsonResponse(result);
 
   } catch (error) {
-    lock.releaseLock();
-    console.error("❌ doPost fatal error:", error);
-    return jsonResponse({ success: false, message: "Server error: " + error.toString() });
+    console.error("doPost:", error);
+    return jsonResponse({
+      success: false,
+      message: "خطأ في الخادم: " + error.message
+    });
+  } finally {
+    try {
+      lock.releaseLock();
+    } catch (ignore) {}
   }
 }
 
 /**
- * doOptions - CORS Preflight
- * ============================================================================
+ * استخراج البيانات من JSON أو form-urlencoded.
  */
-function doOptions(e) {
-  return ContentService.createTextOutput("")
-    .setMimeType(ContentService.MimeType.JSON);
-}
+function extractPostData(e) {
+  let data = null;
 
-/**
- * doGet - اختياري: يعيد رسالة API فقط (لا يحتاج HTML)
- * ============================================================================
- */
-function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({
-    status: "API Active",
-    message: "استخدم POST لإرسال البيانات",
-    endpoint: "POST /exec"
-  })).setMimeType(ContentService.MimeType.JSON);
-}
+  if (e.postData && e.postData.contents) {
+    const contents = e.postData.contents;
 
-/**
- * jsonResponse - مساعد لإرجاع JSON
- * ============================================================================
- */
-function jsonResponse(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+    try {
+      data = JSON.parse(contents);
+    } catch (jsonError) {
+      data = {};
+      const pairs = contents.split("&");
 
-/**
- * parseFormData - تحويل نص form-encoded إلى object
- * ============================================================================
- */
-function parseFormData(contents) {
-  var result = {};
-  var pairs = contents.split("&");
-  for (var i = 0; i < pairs.length; i++) {
-    var pair = pairs[i].split("=");
-    if (pair.length === 2) {
-      result[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      pairs.forEach(function(pair) {
+        if (!pair) return;
+
+        const eq = pair.indexOf("=");
+        const rawKey = eq >= 0 ? pair.substring(0, eq) : pair;
+        const rawValue = eq >= 0 ? pair.substring(eq + 1) : "";
+
+        try {
+          const key = decodeURIComponent(rawKey.replace(/\+/g, " "));
+          const value = decodeURIComponent(rawValue.replace(/\+/g, " "));
+          data[key] = value;
+        } catch (ignore) {}
+      });
     }
   }
-  return result;
+
+  // fallback إلى e.parameter
+  if ((!data || Object.keys(data).length === 0) && e.parameter) {
+    data = {};
+    Object.keys(e.parameter).forEach(function(key) {
+      data[key] = e.parameter[key];
+    });
+  }
+
+  return data || {};
 }
 
 /**
- * saveSurveyData - حفظ في Google Sheet
- * ============================================================================
+ * حفظ الاستبيان في Google Sheets.
+ * هذه الدالة قابلة للاستدعاء أيضاً من google.script.run.
  */
 function saveSurveyData(data) {
   try {
-    var ss = getSpreadsheet();
+    if (!data || typeof data !== "object") {
+      return {
+        success: false,
+        message: "بيانات الاستبيان غير صالحة."
+      };
+    }
+
+    const ss = getSpreadsheet();
+
     if (!ss) {
-      throw new Error("لا يوجد جدول بيانات مرتبط. افتح Google Sheet ← Extensions ← Apps Script ← الصق الكود هناك.");
+      return {
+        success: false,
+        message: "لا يوجد Google Sheet مرتبط بالمشروع. اربط المشروع بجدول أو ضع SPREADSHEET_ID."
+      };
     }
 
-    var sheetUrl = ss.getUrl();
-    var sheet = ss.getSheetByName(SHEET_NAME);
+    const sheet = getOrCreateSurveySheet(ss);
+    const now = new Date();
 
-    if (!sheet) {
-      console.log("🆕 Creating sheet:", SHEET_NAME);
-      sheet = ss.insertSheet(SHEET_NAME);
-      var headers = [
-        "رقم الاستجابة", "التاريخ والوقت", "وقت البدء", "الجنس", "العمر",
-        "المستوى التعليمي", "الوضع الوظيفي", "مصادر المعلومات", "مهام الوزارة",
-        "حماية الفئات الضعيفة", "فرص العمل للشباب", "تقييم الخدمات (1-5)",
-        "التواصل مع المواطنين", "الأولويات", "الاقتراحات", "وقت الإرسال"
-      ];
-      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-      var hr = sheet.getRange(1, 1, 1, headers.length);
-      hr.setBackground("#0A6843").setFontColor("#FFFFFF").setFontWeight("bold").setHorizontalAlignment("center");
-      sheet.setFrozenRows(1);
-    }
+    const responseId = Math.max(sheet.getLastRow(), 1);
 
-    var lastRow = sheet.getLastRow();
-    var responseId = lastRow;
-    var now = new Date();
-
-    var rowData = [
-      responseId, now,
-      data.start || "",
-      data.gender || "", data.age || "", data.education || "", data.employment || "",
-      arrayToString(data.infoSources), arrayToString(data.tasks),
-      data.protection || "", data.jobs || "", data.services || "",
-      data.communication || "", arrayToString(data.priorities),
-      data.suggestion || "", now
+    const rowData = [
+      responseId,
+      now,
+      safeValue(data, "start"),
+      safeValue(data, "gender"),
+      safeValue(data, "age"),
+      safeValue(data, "education"),
+      safeValue(data, "employment"),
+      normalizeArrayValue(data, "infoSources"),
+      normalizeArrayValue(data, "tasks"),
+      safeValue(data, "protection"),
+      safeValue(data, "jobs"),
+      safeValue(data, "services"),
+      safeValue(data, "communication"),
+      normalizeArrayValue(data, "priorities"),
+      safeValue(data, "suggestion"),
+      now
     ];
 
     sheet.appendRow(rowData);
 
-    var newRow = sheet.getRange(lastRow + 1, 1, 1, rowData.length);
-    newRow.setHorizontalAlignment("right").setVerticalAlignment("middle");
-    autoResizeColumns(sheet);
+    const newRow = sheet.getRange(
+      sheet.getLastRow(),
+      1,
+      1,
+      rowData.length
+    );
 
-    console.log("✅ Saved response #", responseId);
+    newRow
+      .setHorizontalAlignment("right")
+      .setVerticalAlignment("middle");
+
+    // تنسيق التاريخ
+    sheet.getRange(sheet.getLastRow(), 2).setNumberFormat("yyyy-mm-dd HH:mm:ss");
+    sheet.getRange(sheet.getLastRow(), 16).setNumberFormat("yyyy-mm-dd HH:mm:ss");
 
     return {
       success: true,
       index: responseId,
       message: "تم الحفظ بنجاح",
-      sheetUrl: sheetUrl,
-      sheetName: SHEET_NAME
+      sheetName: CONFIG.SHEET_NAME,
+      sheetUrl: ss.getUrl()
     };
 
   } catch (error) {
-    console.error("❌ saveSurveyData error:", error);
-    return { success: false, message: error.toString() };
+    console.error("saveSurveyData:", error);
+
+    return {
+      success: false,
+      message: "تعذر حفظ البيانات: " + error.message
+    };
   }
 }
 
-function arrayToString(arr) {
-  if (!arr) return "";
-  if (Array.isArray(arr)) return arr.join("، ");
-  if (typeof arr === "string") return arr;
-  return String(arr);
-}
-
-function autoResizeColumns(sheet) {
-  var lastColumn = sheet.getLastColumn();
-  for (var i = 1; i <= lastColumn; i++) {
-    sheet.autoResizeColumn(i);
-    sheet.setColumnWidth(i, sheet.getColumnWidth(i) + 20);
+/**
+ * الحصول على ملف Google Sheets.
+ */
+function getSpreadsheet() {
+  if (CONFIG.SPREADSHEET_ID) {
+    return SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   }
+
+  try {
+    const active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) return active;
+  } catch (ignore) {}
+
+  return null;
 }
 
+/**
+ * إنشاء ورقة الاستبيان إذا لم تكن موجودة.
+ */
+function getOrCreateSurveySheet(ss) {
+  let sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(CONFIG.SHEET_NAME);
+
+    const headers = [
+      "رقم الاستجابة",
+      "التاريخ والوقت",
+      "وقت البدء",
+      "الجنس",
+      "العمر",
+      "المستوى التعليمي",
+      "الوضع الوظيفي",
+      "مصادر المعلومات",
+      "مهام الوزارة",
+      "حماية الفئات الضعيفة",
+      "فرص العمل للشباب",
+      "تقييم الخدمات (1-5)",
+      "التواصل مع المواطنين",
+      "الأولويات",
+      "الاقتراحات",
+      "وقت الإرسال"
+    ];
+
+    sheet
+      .getRange(1, 1, 1, headers.length)
+      .setValues([headers]);
+
+    sheet
+      .getRange(1, 1, 1, headers.length)
+      .setBackground("#0A6843")
+      .setFontColor("#FFFFFF")
+      .setFontWeight("bold")
+      .setHorizontalAlignment("center");
+
+    sheet.setFrozenRows(1);
+    sheet.setRightToLeft(true);
+  }
+
+  return sheet;
+}
+
+/**
+ * قراءة قيمة آمنة.
+ */
+function safeValue(obj, key) {
+  if (!obj || obj[key] === undefined || obj[key] === null) {
+    return "";
+  }
+  return String(obj[key]);
+}
+
+/**
+ * يحول المصفوفات أو JSON arrays القادمة من form-urlencoded إلى نص عربي.
+ */
+function normalizeArrayValue(obj, key) {
+  if (!obj || obj[key] === undefined || obj[key] === null) {
+    return "";
+  }
+
+  const value = obj[key];
+
+  if (Array.isArray(value)) {
+    return value.join("، ");
+  }
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+
+    if (!trimmed) return "";
+
+    try {
+      const parsed = JSON.parse(trimmed);
+
+      if (Array.isArray(parsed)) {
+        return parsed.join("، ");
+      }
+    } catch (ignore) {}
+
+    return value;
+  }
+
+  return String(value);
+}
+
+/**
+ * استجابة JSON.
+ */
+function jsonResponse(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * قائمة مخصصة داخل Google Sheets.
+ */
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu("📊 استبيان الوزارة")
-    .addItem("🌐 رابط الـ API", "openApiUrl")
+  SpreadsheetApp.getUi()
+    .createMenu("📊 استبيان الوزارة")
+    .addItem("🌐 فتح الاستبيان", "openSurveyUrl")
+    .addItem("🌐 رابط Web App / API", "openApiUrl")
     .addItem("📈 الإحصائيات", "showStats")
     .addItem("🔍 فحص الاتصال", "checkConnection")
     .addToUi();
 }
 
+function openSurveyUrl() {
+  const url = ScriptApp.getService().getUrl();
+
+  SpreadsheetApp.getUi().alert(
+    url
+      ? "رابط الاستبيان:\n" + url
+      : "يجب نشر المشروع كـ Web App أولاً."
+  );
+}
+
 function openApiUrl() {
-  var url = ScriptApp.getService().getUrl();
-  SpreadsheetApp.getUi().alert(url ? "رابط الـ API (POST):\n" + url : "يجب النشر كـ Web App أولاً");
+  const url = ScriptApp.getService().getUrl();
+
+  SpreadsheetApp.getUi().alert(
+    url
+      ? "رابط Web App / API:\n" + url
+      : "يجب نشر المشروع كـ Web App أولاً."
+  );
 }
 
 function showStats() {
-  var ss = getSpreadsheet();
-  if (!ss) { SpreadsheetApp.getUi().alert("❌ لا يوجد جدول مرتبط"); return; }
-  var sheet = ss.getSheetByName(SHEET_NAME);
-  var count = sheet && sheet.getLastRow() > 1 ? sheet.getLastRow() - 1 : 0;
-  SpreadsheetApp.getUi().alert("📊 عدد الاستجابات: " + count + "\n\n" + ss.getUrl());
+  const ss = getSpreadsheet();
+
+  if (!ss) {
+    SpreadsheetApp.getUi().alert("❌ لا يوجد Google Sheet مرتبط.");
+    return;
+  }
+
+  const sheet = ss.getSheetByName(CONFIG.SHEET_NAME);
+  const count = sheet && sheet.getLastRow() > 1
+    ? sheet.getLastRow() - 1
+    : 0;
+
+  SpreadsheetApp.getUi().alert(
+    "📊 عدد الاستجابات: " + count +
+    "\n\n" + ss.getUrl()
+  );
 }
 
 function checkConnection() {
-  var ss = getSpreadsheet();
-  SpreadsheetApp.getUi().alert(ss ? "✅ متصل:\n" + ss.getUrl() : "❌ غير متصل");
+  const ss = getSpreadsheet();
+
+  SpreadsheetApp.getUi().alert(
+    ss
+      ? "✅ الاتصال ناجح:\n" + ss.getUrl()
+      : "❌ لم يتم العثور على Google Sheet."
+  );
 }
