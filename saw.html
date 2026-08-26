@@ -8,9 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>
-استبيان وزارة الشؤون الاجتماعية والعمل 
-</title>
+<title>استبيان وزارة الشؤون الاجتماعية والعمل</title>
 
 <link rel="preconnect"
       href="https://fonts.googleapis.com">
@@ -612,48 +610,6 @@ button {
             var(--gold)
         );
 
-    <div class="official-logo-wrap" aria-label="شعار الجمهورية العربية السورية">
-    <svg class="official-logo" viewBox="0 0 638 479" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#C8A43A;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#B8942A;stop-opacity:1" />
-            </linearGradient>
-        </defs>
-        
-        <!-- النسر السوري الذهبي -->
-        <g fill="url(#goldGradient)" stroke="#A8943A" stroke-width="2">
-            <!-- الجسم -->
-            <path d="M319 200c-15 0-28 12-28 27v85c0 15 12 28 28 28s28-12 28-28v-85c0-15-12-27-28-27z"/>
-            
-            <!-- الرأس -->
-            <path d="M319 180c-12 0-22 10-22 22s10 22 22 22 22-10 22-22-10-22-22-22z"/>
-            <path d="M335 175l15-8-5 18z"/>
-            
-            <!-- الجناح الأيسر -->
-            <path d="M290 220c-40 5-75 25-100 55l-15 18c8 3 18 5 28 3l20-15c15-10 35-18 52-20l15-5v-36z"/>
-            <path d="M190 290l-35 25c-5 5-8 12-8 18l40-15c10-5 20-12 28-20l-25-8z"/>
-            
-            <!-- الجناح الأيمن -->
-            <path d="M348 220c40 5 75 25 100 55l15 18c-8 3-18 5-28 3l-20-15c-15-10-35-18-52-20l-15-5v-36z"/>
-            <path d="M448 290l35 25c5 5 8 12 8 18l-40-15c-10-5-20-12-28-20l25-8z"/>
-            
-            <!-- الذيل -->
-            <path d="M319 340l-15 45c0 8 5 15 15 15s15-7 15-15l-15-45z"/>
-            <path d="M305 385l-10 25c0 5 3 10 10 10s10-5 10-10l-8-20z"/>
-            <path d="M333 385l10 25c0 5-3 10-10 10s-10-5-10-10l8-20z"/>
-            
-            <!-- الأرجل -->
-            <path d="M305 330l-15 35c-2 5 0 10 5 12s10 0 12-5l12-30z"/>
-            <path d="M333 330l15 35c2 5 0 10-5 12s-10 0-12-5l-12-30z"/>
-        </g>
-        
-        <!-- النجوم الثلاثة -->
-        <g fill="#C8A43A" stroke="#A8943A" stroke-width="1.5">
-            <path d="M260 120l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10zM319 110l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10zM378 120l3 9h10l-8 6 3 9-8-6-8 6 3-9-8-6h10z"/>
-        </g>
-    </svg>
-</div>
 }
 
 
@@ -2344,7 +2300,6 @@ textarea::placeholder {
 /* تم الاستغناء عن هذا النمط لأننا نستخدم شاشة منفصلة */
 </style>
 
-<base target="_blank">
 <base target="_blank">
 </head>
 
@@ -4191,17 +4146,109 @@ function collectSurveyData() {
 }
 
 /* =========================================================
-   SUBMIT
-========================================================= */
-/* =========================================================
-   CONFIG - رابط Google Apps Script Web App
-   ⚠️ استبدل هذا الرابط برابطك بعد النشر
+   GOOGLE APPS SCRIPT CONFIG
+   - إذا كانت الصفحة منشورة من Apps Script: google.script.run
+   - إذا كانت على GitHub Pages: POST إلى SCRIPT_URL
 ========================================================= */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjzSNJHDwWr6SMSreQFXH6H9wWPkFUK4wO3mH2mmB29x2X41g/exec";
 
-/* =========================================================
-   SUBMIT
-========================================================= */
+function finishSuccessfulSubmit(result) {
+    isSubmitting = false;
+    loadingOverlay.style.display = "none";
+    submitBtn.disabled = false;
+    submitBtn.innerText = "إرسال الاستبيان";
+
+    formCard.style.display = "none";
+    successCard.style.display = "block";
+
+    var responseNumber = result && result.index ? result.index : "";
+    var successMsg = "✅ تم إرسال الاستبيان بنجاح!";
+    if (responseNumber) {
+        successMsg += "\n\nرقم الاستجابة: " + responseNumber;
+    }
+    successMsg += "\n\n📊 تم حفظ البيانات في Google Sheets.";
+
+    document.getElementById("responseId").innerText = successMsg;
+    document.getElementById("responseId").style.whiteSpace = "pre-line";
+    document.getElementById("responseId").style.lineHeight = "2";
+
+    progressBar.style.width = "100%";
+    progressPercent.innerText = "100%";
+    progressText.innerText = "تم إرسال الاستبيان بنجاح";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function failSubmit(error) {
+    isSubmitting = false;
+    loadingOverlay.style.display = "none";
+    submitBtn.disabled = false;
+    submitBtn.innerText = "إرسال الاستبيان";
+
+    var message = error && error.message ? error.message : String(error || "حدث خطأ غير معروف");
+    showError("❌ " + message);
+}
+
+function submitViaAppsScript(data) {
+    return new Promise(function(resolve, reject) {
+        if (!window.google || !google.script || !google.script.run) {
+            reject(new Error("google.script.run غير متاح"));
+            return;
+        }
+
+        google.script.run
+            .withSuccessHandler(function(result) {
+                if (result && result.success === false) {
+                    reject(new Error(result.message || "تعذر حفظ البيانات"));
+                    return;
+                }
+                resolve(result || { success: true });
+            })
+            .withFailureHandler(function(error) {
+                reject(error);
+            })
+            .saveSurveyData(data);
+    });
+}
+
+function submitViaWebApp(data) {
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf("/exec") === -1) {
+        return Promise.reject(new Error("لم يتم ضبط رابط Google Apps Script Web App."));
+    }
+
+    // URLSearchParams = application/x-www-form-urlencoded
+    // This avoids CORS preflight when the HTML is hosted on GitHub Pages.
+    var params = new URLSearchParams();
+    Object.keys(data).forEach(function(key) {
+        var value = data[key];
+        params.append(
+            key,
+            Array.isArray(value) ? JSON.stringify(value) : String(value == null ? "" : value)
+        );
+    });
+
+    return fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+        },
+        body: params.toString()
+    }).then(function() {
+        // no-cors gives an opaque response; the request has been dispatched.
+        return { success: true };
+    });
+}
+
+function submitSurvey(data) {
+    // First choice: native Apps Script HTML service.
+    if (window.google && google.script && google.script.run) {
+        return submitViaAppsScript(data);
+    }
+
+    // Second choice: GitHub Pages / external hosting.
+    return submitViaWebApp(data);
+}
+
 document.getElementById("surveyForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -4215,66 +4262,16 @@ document.getElementById("surveyForm").addEventListener("submit", function(event)
     submitBtn.disabled = true;
     submitBtn.innerText = "جاري الحفظ...";
     loadingOverlay.style.display = "flex";
+    clearError();
 
-    // Check if SCRIPT_URL is configured
-    if (SCRIPT_URL.indexOf("YOUR_SCRIPT_ID") !== -1) {
-        isSubmitting = false;
-        loadingOverlay.style.display = "none";
-        submitBtn.disabled = false;
-        submitBtn.innerText = "إرسال الاستبيان";
-        showError("⚠️ لم يتم ضبط رابط Google Apps Script.");
-        return;
-    }
-
-    // Send data via fetch to Google Apps Script
-    // Using text/plain to avoid CORS preflight issues
-    var payload = JSON.stringify(data);
-    console.log("📤 Payload:", payload);
-
-    fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: payload
-    })
-    .then(function() {
-        // With no-cors, response is opaque but request IS sent
-        console.log("✅ Request sent to Google Apps Script");
-        return { success: true };
-    })
-    .catch(function(error) {
-        console.error("❌ Fetch failed:", error);
-        throw new Error("فشل الاتصال: " + error.message);
-    })
-    .then(function() {
-        isSubmitting = false;
-        loadingOverlay.style.display = "none";
-
-        formCard.style.display = "none";
-        successCard.style.display = "block";
-
-        var successMsg = "✅ تم إرسال الاستبيان بنجاح!";
-        successMsg += "\n\n📊 البيانات أُرسلت إلى Google Sheets.";
-        successMsg += "\n\n💡 للتأكد: افتح Google Sheet ← القائمة 'استبيان الوزارة' ← 'الإحصائيات'.";
-
-        document.getElementById("responseId").innerText = successMsg;
-        document.getElementById("responseId").style.whiteSpace = "pre-line";
-        document.getElementById("responseId").style.lineHeight = "2";
-
-        progressBar.style.width = "100%";
-        progressPercent.innerText = "100%";
-        progressText.innerText = "تم إرسال الاستبيان بنجاح";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    })
-    .catch(function(error) {
-        isSubmitting = false;
-        loadingOverlay.style.display = "none";
-        submitBtn.disabled = false;
-        submitBtn.innerText = "إرسال الاستبيان";
-        showError("❌ " + error.message);
-    });
+    submitSurvey(data)
+        .then(function(result) {
+            finishSuccessfulSubmit(result);
+        })
+        .catch(function(error) {
+            console.error("❌ Submit failed:", error);
+            failSubmit(error);
+        });
 });
 
 /* =========================================================
